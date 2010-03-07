@@ -9,11 +9,7 @@ $feedset = $feedsets[$feedset];
 // Feeds to be mashed together.
 $feed->set_feed_url($feedset['feeds']);
 
-$feed->set_stupidly_fast ( true ); // remove of set to false if you don't trust the input
-
-// When we set these, we need to make sure that the handler_image.php file is also trying to read from the same cache directory that we are.
-//$feed->set_favicon_handler('./handler_image.php');
-//$feed->set_image_handler('./handler_image.php');
+$feed->set_stupidly_fast ( true ); // Remove or set to false if you don't trust the input.
 
 // Initialize the feed.
 $feed->init();
@@ -44,23 +40,8 @@ header('Vary: Accept');
 	// Let's give ourselves a reference to the parent $feed object for this particular item.
 	$feed = $item->get_feed();
 	
-	$display = false;
-	if (isset($feedset['filter'])) {
-		foreach ($feedset['filter'] as $filter) {
-			$action = $filter[0];
-			$target = $filter[1];
-			$string = $filter[2];
-			
-			if ($action == 'permit') {
-				if (preg_match("/$string/", $item->get_title()))
-					$display = true;
-			}
-			elseif ($action == 'block') {
-				if (!preg_match("/$string/", $item->get_title()))
-					$display = true;
-			}
-		}
-	}
+	if (isset($feedset['filters']))
+		$display = $feed->filter_entry($item, $feedset['filters']);
 	else
 		$display = true;
 	if ($display) {

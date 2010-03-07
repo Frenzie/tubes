@@ -39,7 +39,7 @@ $feedsets = array(
 	'nieuwslijn' => array(
 		'title' => 'Nieuwslijn Once a Day',
 		'sub_title' => 'Who Wants The News Six Times a Day?',
-		'filter' => array(
+		'filters' => array(
 			array('permit', 'title', '07:00:00'),
 			array('permit', 'title', '08:00:00'),
 		),

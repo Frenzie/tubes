@@ -8,6 +8,24 @@ require_once('./simplepie.inc');
 require_once('./idn/idna_convert.class.php');
 
 class SimplePie_XHTML extends SimplePie {
+	function filter_entry($item, $filters) {
+		$display = false;
+		foreach ($filters as $filter) {
+			$action = $filter[0];
+			$target = $filter[1];
+			$string = $filter[2];
+			
+			if ($action == 'permit') {
+				if (preg_match("/$string/", $item->get_title()))
+					$display = true;
+			}
+			elseif ($action == 'block') {
+				if (!preg_match("/$string/", $item->get_title()))
+					$display = true;
+			}
+		}
+		return $display;
+	}
 	function fix_xhtml ($html) {
 		// Robust, should catch everything.
 		if ( function_exists('tidy_parse_string') ) {
