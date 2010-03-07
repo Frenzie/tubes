@@ -3,6 +3,7 @@
 $starttime = explode(' ', microtime());
 $starttime = $starttime[1] + $starttime[0];
 
+require_once('config.php');
 // Include SimplePie XHTML
 require_once('simplepie-xhtml.php');
 
@@ -115,12 +116,15 @@ $feed->handle_content_type();
 			?>
 
 			<!-- Here are some sample feeds. -->
-			<p class="sample_feeds"><strong>Or try one of the following:</strong> 
-			<a href="?feed=http://www.è©¹å§†æ–¯.com/atomtests/iri/everything.atom" title="Test: International Domain Name support">è©¹å§†æ–¯.com</a>, 
-			<a href="?feed=http://www.adultswim.com/williams/podcast/tools/xml/video_rss.xml" title="Humor from the people who make [adult swim] cartoons.">adult swim</a>, 
-			<a href="?feed=http://afterdawn.com/news/afterdawn_rss.xml" title="Ripping, Burning, DRM, and the Dark Side of Consumer Electronics Media">Afterdawn</a>, 
-			<a href="?feed=http://feeds.feedburner.com/ajaxian" title="AJAX and Scripting News">Ajaxian</a>, 
-<!-- replace with dynamic code-->
+			<p class="sample_feeds"><strong>Or try one of the following:</strong>
+<?php
+while (list($feedset, $feeds) = each($feedsets)) {
+	$feedset_uri = $feed_uri . '?feedset=' . $feedset;
+	$title = $feedset;
+	if (isset($feeds['title'])) $title = $feeds['title'];
+	echo '<a href="'.$folder_uri.'output-html.php?feed=' . $feedset_uri . '">'.$title.'</a>, ';
+}
+?>
 		</div>
 
 		<div id="sp_results">
