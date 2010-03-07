@@ -1,2 +1,2 @@
-syntax: glob
-cache/*
+syntax: regexp
+^cache/(?!\.hidden).+$
