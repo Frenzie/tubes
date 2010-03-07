@@ -1,2 +1,2 @@
 syntax: regexp
-^cache/(!\.hidden).+$
+^cache/(?!\.hidden).+$
