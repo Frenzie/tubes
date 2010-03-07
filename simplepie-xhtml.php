@@ -32,7 +32,7 @@ class SimplePie_XHTML extends SimplePie {
 		else {
 			$xhtml;
 			//$self_closing = array ('br', 'hr', 'input', 'img');
-			$self_closing = array ('br'); ///only those butchered by SimplePie go in here
+			$self_closing = array ('br'); ///Only those butchered by SimplePie go in here.
 			for ($i = 0; $i < count($self_closing); $i++) {
 				$xhtml = preg_replace ('/<'.$self_closing[$i].'(.*)>/sU','<'.$self_closing[$i].'\\1/>',$html);
 			}
