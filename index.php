@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // SimplePie-based feed mashup
 // http://frans.lowter.us/2010/02/14/simplepie-based-feed-mashup/
 // Spread, use, modify, etc. as much as you like. A link back or a comment would be appreciated, but there's no need to. -Frans
