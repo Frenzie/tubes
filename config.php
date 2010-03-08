@@ -7,7 +7,7 @@
 //$feed_uri = 'http://somewhere/mashup/'; // Permanent URI for feed, so basically just a reference to where this script is located. Required.
 $folder_uri = 'http://' . $_SERVER['SERVER_NAME'] . substr($_SERVER['PHP_SELF'], 0, -9); // Strips index.php
 $feed_uri = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']; // URI of script for inclusion in output feed.
-if (isset($_SERVER['QUERY_STRING'])) $feed_uri .= '?' . $_SERVER['QUERY_STRING'];
+if ( isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '' ) $feed_uri .= '?' . $_SERVER['QUERY_STRING'];
 $feed_title = 'Feed Mashup'; // Default title, used when nothing specified in set.
 $feed_sub_title = 'Multiple Feeds Condensed Into One Feed'; // Default subtitle, used when nothing specified in set.
 $feed_icon = 'http://static.myopera.com/favicon.ico'; // Not required, nice for display in supporting feed readers.
