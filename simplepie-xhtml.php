@@ -23,6 +23,9 @@ class SimplePie_XHTML extends SimplePie {
 				if (!preg_match("/$string/", $item->get_title()))
 					$display = true;
 			}
+			elseif ($action == 'custom') {
+				eval($string);
+			}
 		}
 		return $display;
 	}
