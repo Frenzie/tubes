@@ -10,7 +10,8 @@ $feed_uri = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['PHP_SELF']; // URI o
 if ( isset($_SERVER['QUERY_STRING']) && $_SERVER['QUERY_STRING'] != '' ) $feed_uri .= '?' . $_SERVER['QUERY_STRING'];
 $feed_title = 'Feed Mashup'; // Default title, used when nothing specified in set.
 $feed_sub_title = 'Multiple Feeds Condensed Into One Feed'; // Default subtitle, used when nothing specified in set.
-$feed_icon = 'http://static.myopera.com/favicon.ico'; // Not required, nice for display in supporting feed readers.
+$feed_author_name = 'Tubes'; // Required.
+$feed_author_url = 'http://frans.lowter.us/'; // Optional.
 
 // set the feed URIs
 $feedsets = array(
@@ -59,6 +60,7 @@ $feedsets = array(
 	'opera' => array(
 		'title' => 'Opera Feeds',
 		'sub_title' => 'Opera News Condensed',
+		'feed_icon' => 'http://static.myopera.com/favicon.ico',
 		'feeds' => array(
 			'http://my.opera.com/core/xml/atom/blog/',
 			'http://my.opera.com/desktopteam/xml/atom/blog/',
