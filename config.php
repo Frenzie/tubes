@@ -36,6 +36,15 @@ $feedsets = array(
 			'http://www.xkcd.com/atom.xml',
 		),
 	),
+	'language' => array(
+		'title' => 'Language Mashing',
+		'sub_title' => 'This Is No Gerund',
+		'feeds' => array(
+			'http://arnoldzwicky.wordpress.com/feed/atom/',
+			'http://languagelog.ldc.upenn.edu/nll/?feed=atom',
+			'http://feeds.feedburner.com/TenserSaidTheTensor',
+		),
+	),
 	'nieuwslijn' => array(
 		'title' => 'Nieuwslijn Once a Day',
 		'sub_title' => 'Who Wants The News Six Times a Day?',

@@ -59,29 +59,10 @@ $feed->handle_content_type();
 // When we end our PHP block, we want to make sure our DOCTYPE is on the top line to make 
 // sure that the browser snaps into Standards Mode.
 ?><!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
-<head>
 <title>SimplePie: Demo</title>
 
 <link rel="stylesheet" href="./for_the_demo/simplepie.css" type="text/css" media="screen, projector" />
 
-</head>
-
-<body id="bodydemo">
-
-<div id="header">
-	<div id="headerInner">
-		<div id="logoContainer">
-			<div id="logoContainerInner">
-				<div align="center"><a href="http://simplepie.org"><img src="./for_the_demo/logo_simplepie_demo.png" alt="SimplePie Demo: PHP-based RSS and Atom feed handling" title="SimplePie Demo: PHP-based RSS and Atom feed handling" border="0" /></a></div>
-				<div class="clearLeft"></div>
-			</div>
-
-		</div>
-
-	</div>
-</div>
 
 <div id="site">
 
@@ -134,7 +115,7 @@ while (list($feedset, $feeds) = each($feedsets)) {
 				<div class="chunk focus" align="center">
 
 					<!-- If the feed has a link back to the site that publishes it (which 99% of them do), link the feed's title to it. -->
-					<h3 class="header"><?php if ($feed->get_link()) echo '<a href="' . $feed->get_link() . '">'; echo $feed->get_title(); if ($feed->get_link()) echo '</a>'; ?></h3>
+					<h1><?php if ($feed->get_link()) echo '<a href="' . $feed->get_link() . '">'; echo $feed->get_title(); if ($feed->get_link()) echo '</a>'; ?></h1>
 
 					<!-- If the feed has a description, display it. -->
 					<?php echo $feed->get_description(); ?>
@@ -218,7 +199,7 @@ while (list($feedset, $feeds) = each($feedsets)) {
 			<p class="footnote">Page processed in <?php $mtime = explode(' ', microtime()); echo round($mtime[0] + $mtime[1] - $starttime, 3); ?> seconds.</p>
 
 			<!-- Display the version of SimplePie being loaded. -->
-			<p class="footnote">Powered by <a href="<?php echo SIMPLEPIE_URL; ?>"><?php echo SIMPLEPIE_NAME . ' ' . SIMPLEPIE_VERSION . ', Build ' . SIMPLEPIE_BUILD; ?></a>.  Run the <a href="../compatibility_test/sp_compatibility_test.php">SimplePie Compatibility Test</a>.  SimplePie is &copy; 2004&ndash;<?php echo date('Y'); ?>, Ryan Parman and Geoffrey Sneddon, and licensed under the <a href="http://www.opensource.org/licenses/bsd-license.php">BSD License</a>.</p>
+			<p class="footnote">Powered by <a href="<?php echo SIMPLEPIE_URL; ?>"><?php echo SIMPLEPIE_NAME . ' ' . SIMPLEPIE_VERSION . ', Build ' . SIMPLEPIE_BUILD; ?></a>.  SimplePie is &copy; 2004&ndash;<?php echo date('Y'); ?>, Ryan Parman and Geoffrey Sneddon, and licensed under the <a href="http://www.opensource.org/licenses/bsd-license.php">BSD License</a>.</p>
 		</div>
 
 	</div>
