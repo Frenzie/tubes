@@ -46,6 +46,12 @@ $feedsets = array(
 			'http://feeds.feedburner.com/TenserSaidTheTensor',
 		),
 	),
+	'news' => array(
+		'title' => 'UN News',
+		'feeds' => array(
+			'http://www.unmultimedia.org/radio/english/rss/itunes.xml',
+		),
+	),
 	'nieuwslijn' => array(
 		'title' => 'Nieuwslijn Once a Day',
 		'sub_title' => 'Who Wants The News Six Times a Day?',

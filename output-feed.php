@@ -55,7 +55,7 @@ header('Vary: Accept');
 		<name><?php echo $item->get_author()->get_name(); ?></name>
 	</author>
 <?php } ?>
-	<title type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr"><?php echo strip_tags($item->get_title()); ?></div></title>
+	<title><?php echo strip_tags($item->get_title()); ?></title>
 	<link rel="alternate" type="text/html" href="<?php echo $item->get_permalink(); ?>"/>
 <!--	<summary></summary>-->
 	<content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
