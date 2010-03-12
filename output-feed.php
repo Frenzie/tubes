@@ -56,7 +56,9 @@ header('Vary: Accept');
 	</author>
 <?php } ?>
 	<title><?php echo strip_tags($item->get_title()); ?></title>
-<!--	<summary></summary>-->
+	<summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
+	<?php echo $feed->fix_xhtml($item->get_description()); ?>
+	</div></summary>
 	<content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
 	<?php echo $feed->fix_xhtml($item->get_content()); ?>
 	</div></content>
