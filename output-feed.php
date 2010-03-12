@@ -64,6 +64,14 @@ header('Vary: Accept');
 	<published><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></published>
 	<updated><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></updated>
 	<id><?php echo $item->get_permalink(); ?></id>
+<?php if ($enclosure = $item->get_enclosure()) { ?>
+	<link rel="enclosure"
+		type="<?php echo $enclosure->get_type(); ?>"
+<?php if ( $enclosure->get_title() ) { ?>		title="<?php echo $enclosure->get_title(); ?>"<?php } ?>
+		href="<?php echo $enclosure->get_link(); ?>"
+		length="<?php echo $enclosure->get_length(); ?>"
+	/>
+<?php } ?>
  </entry>
 <?php } ?>
 <?php endforeach ?>
