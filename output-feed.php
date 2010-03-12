@@ -56,7 +56,6 @@ header('Vary: Accept');
 	</author>
 <?php } ?>
 	<title><?php echo strip_tags($item->get_title()); ?></title>
-	<link rel="alternate" type="text/html" href="<?php echo $item->get_permalink(); ?>"/>
 <!--	<summary></summary>-->
 	<content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
 	<?php echo $feed->fix_xhtml($item->get_content()); ?>
@@ -64,13 +63,37 @@ header('Vary: Accept');
 	<published><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></published>
 	<updated><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></updated>
 	<id><?php echo $item->get_permalink(); ?></id>
-<?php if ($enclosure = $item->get_enclosure()) { ?>
-	<link rel="enclosure"
-		type="<?php echo $enclosure->get_type(); ?>"
-<?php if ( $enclosure->get_title() ) { ?>		title="<?php echo $enclosure->get_title(); ?>"<?php } ?>
-		href="<?php echo $enclosure->get_link(); ?>"
-		length="<?php echo $enclosure->get_length(); ?>"
-	/>
+<?php
+if ($enclosure = $item->get_enclosure()) {
+	$enc_output = '	<link rel="enclosure" ';
+	$enc_output .= 'type="'.$enclosure->get_type().'" ';
+	if ( $enclosure->get_title() ) $enc_output .= 'title='.$enclosure->get_title().'" ';
+	$enc_output .= 'href="'.$enclosure->get_link().'" ';
+	if ($enclosure->get_length() != 0)
+		$enc_output .= 'length="'.$enclosure->get_length().'" ';
+	else {
+		$ch = curl_init($enclosure->get_link());
+		curl_setopt($ch, CURLOPT_NOBODY, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); //not necessary unless the file redirects (like the PHP example we're using here)
+		$data = curl_exec($ch);
+		curl_close($ch);
+		if ($data === false) {
+			echo 'cURL failed';
+			exit;
+		}
+		$contentLength = 0;
+		if (preg_match('/Content-Length: (\d+)/', $data, $matches)) {
+			$contentLength = (int)$matches[1];
+		}
+		$enc_output .= 'length="'.$contentLength.'" ';
+	}
+	$enc_output .= '/>';
+	echo $enc_output;
+}
+else { ?>
+	<link rel="alternate" type="text/html" href="<?php echo $item->get_permalink(); ?>"/>
 <?php } ?>
  </entry>
 <?php } ?>
