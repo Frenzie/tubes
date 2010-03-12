@@ -90,11 +90,10 @@ if ($enclosure = $item->get_enclosure()) {
 		$enc_output .= 'length="'.$contentLength.'" ';
 	}
 	$enc_output .= '/>';
-	echo $enc_output;
+	echo $enc_output."\n";
 }
-else { ?>
+?>
 	<link rel="alternate" type="text/html" href="<?php echo $item->get_permalink(); ?>"/>
-<?php } ?>
  </entry>
 <?php } ?>
 <?php endforeach ?>
