@@ -66,7 +66,7 @@ header('Vary: Accept');
 	<?php echo $feed->fix_xhtml($item->get_content()); ?>
 	</div></content>
 <?php }
-else echo '<content> </content>'; // The Atom spec requires some textual content, which is what the single space provides. This seems to be the single disadvantage compared to RSS. Perhaps replace with some custom code searching for something that could be proper to insert here like iTunes junk (SP is supposed to do that, but it doesn't seem to).
+elseif ( ! ($item->get_description() || $item->get_content()) ) echo '	<summary> </summary>'."\n"; // The Atom spec requires some textual content, which is what the single space provides. This seems to be the single disadvantage compared to RSS. Perhaps replace with some custom code searching for something that could be proper to insert here like iTunes junk (SP is supposed to do that, but it doesn't seem to).
 ?>
 	<published><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></published>
 	<updated><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></updated>
