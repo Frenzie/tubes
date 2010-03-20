@@ -74,6 +74,7 @@ $feedsets = array(
 			'http://my.opera.com/haavard/xml/atom/blog/',
 			'http://my.opera.com/hallvors/xml/atom/blog/',
 			'http://my.opera.com/operaqa/xml/atom/blog/',
+			'http://my.opera.com/ruario/xml/atom/blog/',
 			'http://my.opera.com/securitygroup/xml/atom/blog/',
 			'http://my.opera.com/sitepatching/xml/atom/blog/',
 			'http://feeds.feedburner.com/OperaWatch',
