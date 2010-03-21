@@ -70,6 +70,7 @@ $feedsets = array(
 		'feeds' => array(
 			'http://my.opera.com/core/xml/atom/blog/',
 			'http://my.opera.com/desktopteam/xml/atom/blog/',
+			'http://my.opera.com/devblog/xml/atom/blog/',
 			'http://my.opera.com/dragonfly/xml/atom/blog/',
 			'http://my.opera.com/haavard/xml/atom/blog/',
 			'http://my.opera.com/hallvors/xml/atom/blog/',
