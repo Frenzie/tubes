@@ -48,6 +48,7 @@ $feedsets = array(
 	),
 	'news' => array(
 		'title' => 'UN News',
+		'feed_icon' => 'http://downloads.unmultimedia.org/radio/partners/itunes/iTunes_cover_Radio_EN.jpg',
 		'feeds' => array(
 			'http://www.unmultimedia.org/radio/english/rss/itunes.xml',
 		),
