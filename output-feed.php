@@ -17,6 +17,9 @@ $feed->init();
 // Set the correct header for an atom feed.
 header('Content-Type: application/atom+xml;charset=utf-8');
 header('Vary: Accept');
+
+if (isset($feedset['notification']))
+	$notification = $feedset['notification'];
 ?>
 <?php if ($feed->error): ?>
  <p><?=$feed->error()?></p>
@@ -56,17 +59,17 @@ header('Vary: Accept');
 	</author>
 <?php } ?>
 	<title><?php echo strip_tags($item->get_title()); ?></title>
-<?php if ( $item->get_description() ) { ?>
+<?php if ( !isset($notification) && $item->get_description() ) { ?>
 	<summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
 	<?php echo $feed->fix_xhtml($item->get_description()); ?>
 	</div></summary>
 <?php } ?>
-<?php if ( $item->get_content() ) { ?>
+<?php if ( !isset($notification) && $item->get_content() ) { ?>
 	<content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
 	<?php echo $feed->fix_xhtml($item->get_content()); ?>
 	</div></content>
 <?php }
-elseif ( ! ($item->get_description() || $item->get_content()) ) echo '	<summary> </summary>'."\n"; // The Atom spec requires some textual content, which is what the single space provides. This seems to be the single disadvantage compared to RSS. Perhaps replace with some custom code searching for something that could be proper to insert here like iTunes junk (SP is supposed to do that, but it doesn't seem to).
+elseif ( isset($notification) || ! ($item->get_description() || $item->get_content()) ) echo '	<summary> </summary>'."\n"; // The Atom spec requires some textual content, which is what the single space provides. This seems to be the single disadvantage compared to RSS. Perhaps replace with some custom code searching for something that could be proper to insert here like iTunes junk (SP is supposed to do that, but it doesn't seem to).
 ?>
 	<published><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></published>
 	<updated><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></updated>

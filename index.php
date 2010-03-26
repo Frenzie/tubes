@@ -7,8 +7,10 @@
 require_once('config.php');
 
 // Get feedset from URI, if applicable.
-if ( isset($_GET['feedset']) ) $feedset = $_GET['feedset'];
-
+if ( isset($_GET['feedset']) ) {
+	$feedset = $_GET['feedset'];
+	if ( isset($_GET['notification']) ) $notification = true;
+}
 
 if ( isset($feedset) )
 	include 'output-feed.php';
