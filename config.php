@@ -29,6 +29,7 @@ $feedsets = array(
 		'sub_title' => 'Webcomics Amassed',
 		'notification' => true,
 		'feeds' => array(
+			'http://www.almostpets.com/feed/atom/',
 			'http://www.jaynaylor.com/betterdays/atom.xml',
 			'http://www.cad-comic.com/rss/rss.xml',
 			'http://www.thedevilspanties.com/comic.rss',
