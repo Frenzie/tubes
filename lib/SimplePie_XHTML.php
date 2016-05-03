@@ -1,11 +1,11 @@
 <?php
 // SimplePie-based feed mashup
-// http://frans.lowter.us/2010/02/14/simplepie-based-feed-mashup/
-// Spread, use, modify, etc. as much as you like. A link back or a comment would be appreciated, but there's no need to. -Frans
+// http://fransdejonge.com/2010/02/simplepie-based-feed-mashup/
+// Spread, use, modify, etc. as much as you like under the terms of the GPLv3 license. A link back or a comment would be appreciated, but there's no need to. -Frans
 
 // Include the SimplePie library, and the one that handles internationalized domain names.
-require_once('./simplepie.inc');
-require_once('./idn/idna_convert.class.php');
+require_once(LIB_PATH . '/SimplePie/SimplePie.compiled.php');
+require_once(LIB_PATH . '/idn/idna_convert.class.php');
 
 class SimplePie_XHTML extends SimplePie {
 	function filter_entry($item, $filters) {
@@ -61,4 +61,3 @@ class SimplePie_XHTML extends SimplePie {
 		}
 	}
 }
-?>

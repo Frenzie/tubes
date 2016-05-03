@@ -1,6 +1,6 @@
 <?php
 // Include SimplePie XHTML
-require_once('simplepie-xhtml.php');
+require_once(LIB_PATH . '/SimplePie_XHTML.php');
 
 // Initialize some feeds for use.
 $feed = new SimplePie_XHTML();
@@ -18,11 +18,13 @@ $feed->init();
 header('Content-Type: application/atom+xml;charset=utf-8');
 header('Vary: Accept');
 
-if (isset($feedset['notification']))
+$notification = NULL;
+if (isset($feedset['notification'])) {
 	$notification = $feedset['notification'];
+}
 ?>
 <?php if ($feed->error): ?>
- <p><?=$feed->error()?></p>
+ <p><?=var_dump($feed->error())?></p>
 <?php endif ?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
  <title><?php if (isset($feedset['title'])) echo $feedset['title']; else echo $feed_title; ?></title>
@@ -59,6 +61,7 @@ if (isset($feedset['notification']))
 	</author>
 <?php } ?>
 	<title><?php echo strip_tags($item->get_title()); ?></title>
+	<?php echo(isset($notification)); ?>
 <?php if ( !isset($notification) && $item->get_description() ) { ?>
 	<summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">
 	<?php echo $feed->fix_xhtml($item->get_description()); ?>
@@ -75,33 +78,39 @@ elseif ( isset($notification) || ! ($item->get_description() || $item->get_conte
 	<updated><?php echo $item->get_date('Y-m-d\TH:i:sP'); ?></updated>
 	<id><?php echo $item->get_permalink(); ?></id>
 <?php
-if ($enclosure = $item->get_enclosure()) {
-	$enc_output = '	<link rel="enclosure" ';
-	$enc_output .= 'type="'.$enclosure->get_type().'" ';
-	if ( $enclosure->get_title() ) $enc_output .= 'title='.$enclosure->get_title().'" ';
-	$enc_output .= 'href="'.$enclosure->get_link().'" ';
-	if ($enclosure->get_length() != 0)
-		$enc_output .= 'length="'.$enclosure->get_length().'" ';
-	else {
-		$ch = curl_init($enclosure->get_link());
-		curl_setopt($ch, CURLOPT_NOBODY, true);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_HEADER, true);
-		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); //not necessary unless the file redirects (like the PHP example we're using here)
-		$data = curl_exec($ch);
-		curl_close($ch);
-		if ($data === false) {
-			echo 'cURL failed';
-			exit;
+if ($enclosures = $item->get_enclosures()) {
+	foreach ($enclosures as $enclosure) {
+		// Umm… SimplePie returns enclosures with '//?#' as the URL on everything now?
+		// Probably something else is wrong, but let's just quickly work around it by checking link validity.
+		if (filter_var($enclosure->get_link(), FILTER_VALIDATE_URL) === TRUE) {
+			$enc_output = '	<link rel="enclosure" ';
+			$enc_output .= 'type="'.$enclosure->get_type().'" ';
+			if ( $enclosure->get_title() ) $enc_output .= 'title='.$enclosure->get_title().'" ';
+			$enc_output .= 'href="'.$enclosure->get_link().'" ';
+			if ($enclosure->get_length() != 0)
+				$enc_output .= 'length="'.$enclosure->get_length().'" ';
+			else {
+				$ch = curl_init($enclosure->get_link());
+				curl_setopt($ch, CURLOPT_NOBODY, true);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_HEADER, true);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); //not necessary unless the file redirects (like the PHP example we're using here)
+				$data = curl_exec($ch);
+				curl_close($ch);
+				if ($data === false) {
+					echo 'cURL failed';
+					exit;
+				}
+				$contentLength = 0;
+				if (preg_match('/Content-Length: (\d+)/', $data, $matches)) {
+					$contentLength = (int)$matches[1];
+				}
+				$enc_output .= 'length="'.$contentLength.'" ';
+			}
+			$enc_output .= '/>';
+			echo $enc_output."\n";
 		}
-		$contentLength = 0;
-		if (preg_match('/Content-Length: (\d+)/', $data, $matches)) {
-			$contentLength = (int)$matches[1];
-		}
-		$enc_output .= 'length="'.$contentLength.'" ';
 	}
-	$enc_output .= '/>';
-	echo $enc_output."\n";
 }
 ?>
 	<link rel="alternate" type="text/html" href="<?php echo $item->get_permalink(); ?>"/>

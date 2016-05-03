@@ -8,7 +8,7 @@ dt {float: left;clear: left;}
 <?php
 $checks = array(
 	// Some stuff from SimplePie's compatibility check.
-	'php' => array('PHP 4.3.0+', (function_exists('version_compare') && version_compare(phpversion(), '4.3.0', '>='))),
+	'php' => array('PHP 5.2.0+', (function_exists('version_compare') && version_compare(phpversion(), '5.2.0', '>='))),
 	'xml' => array('XML', extension_loaded('xml')),
 	'pcre' => array('PCRE', extension_loaded('pcre')),
 	'curl' => array('cURL', function_exists('curl_exec')),

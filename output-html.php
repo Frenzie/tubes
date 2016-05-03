@@ -5,7 +5,7 @@ $starttime = $starttime[1] + $starttime[0];
 
 require_once('config.php');
 // Include SimplePie XHTML
-require_once('simplepie-xhtml.php');
+require_once(LIB_PATH . '/SimplePie_XHTML.php');
 
 // Create a new instance of the SimplePie object
 $feed = new SimplePie_XHTML();

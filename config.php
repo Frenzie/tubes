@@ -3,6 +3,9 @@
 // http://frans.lowter.us/2010/02/14/simplepie-based-feed-mashup/
 // Spread, use, modify, etc. as much as you like. A link back or a comment would be appreciated, but there's no need to. -Frans
 
+// include constants
+require_once('constants.php');
+
 // set a few variables
 //$feed_uri = 'http://somewhere/mashup/'; // Permanent URI for feed, so basically just a reference to where this script is located. Required.
 $folder_uri = 'http://' . $_SERVER['SERVER_NAME'] . substr($_SERVER['PHP_SELF'], 0, -9); // Strips index.php
@@ -107,4 +110,3 @@ $feedsets = array(
 		),
 	),
 );
-?>
